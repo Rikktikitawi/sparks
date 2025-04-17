@@ -163,9 +163,7 @@
         const categoryQuestions = questions[category];
         const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
         const question = categoryQuestions[randomIndex];
-        document.getElementById("question").innerText = question;
-        
-        // Показати кнопки "Пропустити" і "Відповісти"
+        document.getElementById("question").innerHTML = ${selected.text} <br><span style="font-size: 30px;">${selected.symbol}</span>`;
         document.getElementById("controls").style.display = "block";
     }
         document.getElementById("skip-btn").addEventListener("click", () => {
