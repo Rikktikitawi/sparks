@@ -145,12 +145,19 @@
                 "Хто був твоїм куміром поки ти зростав?"
             ]
         };
-
-        function getQuestion(category) {
-            const categoryQuestions = questions[category];
-            const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-            const question = categoryQuestions[randomIndex];
-            document.getElementById("question").innerText = question;
+        
+    let currentCategory = null;
+        
+    function getQuestion(category) {
+        currentCategory = category;
+        const categoryQuestions = questions[category];
+        const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
+        const question = categoryQuestions[randomIndex];
+        document.getElementById("question").innerText = question;
+        
+        // Показати кнопки "Пропустити" і "Відповісти"
+        document.getElementById("controls").style.display = "block";
+    }
         }
     </script>
 
