@@ -54,11 +54,11 @@
             cursor: pointer;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
-   
-    .control-button:hover {
-        background-color: #6a00cc;
-        transform: scale(1.05);
-    }
+        
+        .control-button:hover {
+            background-color: #6a00cc;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -159,6 +159,11 @@
         document.getElementById("controls").style.display = "block";
     }
         }
+        document.getElementById("skip-btn").addEventListener("click", () => {
+    if (currentCategory) {
+        getQuestion(currentCategory);
+    }
+});
     </script>
 
 </body>
