@@ -169,12 +169,12 @@
 
         let text, symbol;
 
-        if (typeof selected === 'string') {
-            text = selected;
+        if (typeof question === 'string') {
+            text = question;
             symbol = '';
         }else{
-            text = selected.text;
-            symbol = selected.symbol;
+            text = question.text;
+            symbol = question.symbol;
         }
         
         document.getElementById("question").innerHTML = ${text} <br><span style="font-size: 30px; display: block; margin-top: 10px">${symbol}</span>`;
