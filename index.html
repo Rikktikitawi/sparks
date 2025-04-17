@@ -163,7 +163,18 @@
         const categoryQuestions = questions[category];
         const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
         const question = categoryQuestions[randomIndex];
-        document.getElementById("question").innerHTML = ${selected.text} <br><span style="font-size: 30px;">${selected.symbol}</span>`;
+
+        let text, symbol;
+
+        if (typeof selected === 'string') {
+            text = selected;
+            symbol = '';
+        }else{
+            text = selected.text;
+            symbol = selected.symbol;
+        }
+        
+        document.getElementById("question").innerHTML = ${text} <br><span style="font-size: 30px; display: block; margin-top: 10px">${symbol}</span>`;
         document.getElementById("controls").style.display = "block";
     }
         document.getElementById("skip-btn").addEventListener("click", () => {
