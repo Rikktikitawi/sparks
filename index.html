@@ -30,8 +30,8 @@
             color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            width: 150px;
-            height: 100px;
+            width: 100px;
+            height: 160px;
         }
         button:hover {
             transform: translateY(-5px);
@@ -51,9 +51,9 @@
     <p>Вибери категорію та натисни кнопку, щоб отримати питання.</p>
 
     <div class="button-container">
-        <button onclick="getQuestion('Future')">Future</button>
         <button onclick="getQuestion('Present')">Present</button>
         <button onclick="getQuestion('Past')">Past</button>
+        <button onclick="getQuestion('Future')">Future</button>
     </div>
 
     <div id="question"></div>
