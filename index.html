@@ -251,6 +251,18 @@
         document.getElementById("skip-btn").addEventListener("click", () => {
     if (currentCategory) {
         getQuestion(currentCategory);
+
+    document.getElementById("answer-btn").addEventListener("click", () => {
+    const questionDiv = document.getElementById("question");
+    const symbol = questionDiv.querySelector("span")?.innerText || '';
+    
+    if (symbol) {
+        const historyDiv = document.getElementById("symbol-history");
+        historyDiv.innerHTML += symbol + ' ';
+    }
+
+    if (currentCategory) {
+        getQuestion(currentCategory);
     }
 });
     </script>
