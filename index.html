@@ -76,8 +76,6 @@
 
     <div id="question"></div>
 
-    <div id="symbol-history" style="font-size: 30px; margin-top: 20px;"></div>
-
     <div id="controls" style="display: none;">
         <button id="skip-btn" class="control-button">Пропустити</button>
         <button id="answer-btn" class="control-button">Відповісти</button>
@@ -249,18 +247,6 @@
         document.getElementById("controls").style.display = "block";
     }
         document.getElementById("skip-btn").addEventListener("click", () => {
-    if (currentCategory) {
-        getQuestion(currentCategory);
-
-    document.getElementById("answer-btn").addEventListener("click", () => {
-    const questionDiv = document.getElementById("question");
-    const symbol = questionDiv.querySelector("span")?.innerText || '';
-    
-    if (symbol) {
-        const historyDiv = document.getElementById("symbol-history");
-        historyDiv.innerHTML += symbol + ' ';
-    }
-
     if (currentCategory) {
         getQuestion(currentCategory);
     }
