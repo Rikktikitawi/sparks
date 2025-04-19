@@ -223,21 +223,15 @@
                 {text: "Lunar event: витягуй картки поки не натрапиш на питання. Перед відповіддю інша людина може додати, прибрати або поміняти одне слово в питанні", symbol: "⬤"},
                 {text: "Що ти в дитинстві найбільше любив дивитись по телевізору?", symbol: "◒"}
             ]
-        };
-
-    let currentCategory = '';    
+        }; 
         
     function getQuestion(category) {
-        currentCategory = category;
         const categoryQuestions = questions[category];
         const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-        const randomQuestion = categoryQuestions[randomIndex];
+        const question = categoryQuestions[randomIndex];
         
         document.getElementById("question").innerHTML = text + '<br><span style="font-size: 30px; display: block; margin-top: 10px">' + symbol + '</span>';
         document.getElementById("controls").style.display = "block";
-    }
-        document.getElementById("skip-btn").addEventListener("click", function() => {
-        getQuestion(currentCategory);
     }
 });
     </script>
