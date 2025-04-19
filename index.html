@@ -224,13 +224,15 @@
                 {text: "Що ти в дитинстві найбільше любив дивитись по телевізору?", symbol: "◒"}
             ]
         };
+
         
-    function getQuestion(category, button) {
+    function getQuestion(category) {
 
         button.disabled = true;
         
+        const categoryQuestions = questions[category];
         const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-        const question = questions[category][randomIndex];
+        const question = categoryQuestions[category][randomIndex];
         document.getElementById("question").innerHTML = text + '<br><span style="font-size: 30px; display: block; margin-top: 10px">' + symbol + '</span>';
         document.getElementById("controls").style.display = "block";
     }
