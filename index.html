@@ -207,6 +207,8 @@
             currentIndex = 0; // починаємо з першого питання в обраній категорії
             const btn = document.getElementById(`btn-${category}`);
             btn.disabled = true;
+          document.getElementById('answer-btn').disabled = false;
+          document.getElementById('skip-btn').disabled = false;
 
             showQuestion();
         }
@@ -233,6 +235,8 @@
           const symbol = questions[currentCategory][currentIndex].symbol;
           const btnContainer = document.getElementById(`btn-${currentCategory}-container`);
           btnContainer.innerHTML = `<div class="symbol">${symbol}</div>`;
+          document.getElementById('answer-btn').disabled = true;
+          document.getElementById('skip-btn').disabled = true;
         }
     </script>
 
