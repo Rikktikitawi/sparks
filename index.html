@@ -56,7 +56,15 @@
   <div id="action-buttons"></div>
 
     <script>
-        const questions = {
+      const collectedSymbols = [];
+      const symbolToWordMap = {
+        "◓⬉☾": "Овен",
+        "◓⬉☽": "Андромеда",
+        "◓⬈☾": "Рак",
+        "◓⬈☽": "Близнята",
+        "◓⬋☾": "Риби"
+      };
+      const questions = {
             future: [
                 {text: "Якби тобі залишалося жити лише один рік, як би ти його провів?", symbol: "☾"},
                 {text: "Якби ти починав новий бізнес, то що б це було?", symbol: "☾"},
