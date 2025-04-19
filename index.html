@@ -225,24 +225,12 @@
             ]
         };
         
-    let currentCategory = null;
+    function getQuestion(category, button) {
+
+        button.disabled = true;
         
-    function getQuestion(category) {
-        currentCategory = category;
-        const categoryQuestions = questions[category];
         const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-        const question = categoryQuestions[randomIndex];
-
-        let text, symbol;
-
-        if (typeof question === 'string') {
-            text = question;
-            symbol = '';
-        } else {
-            text = question.text;
-            symbol = question.symbol;
-        }
-        
+        const question = questions[category][randomIndex];
         document.getElementById("question").innerHTML = text + '<br><span style="font-size: 30px; display: block; margin-top: 10px">' + symbol + '</span>';
         document.getElementById("controls").style.display = "block";
     }
