@@ -217,6 +217,9 @@
         }
 
         function answerQuestion() {
+          const symbol = questions[currentCategory][currentIndex].symbol;
+          const categoryButton = document.getElementById(`btn-${currentCategory}`);
+          categoryButton.innerHTML = symbol;
         }
     </script>
 
