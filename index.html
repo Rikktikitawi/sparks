@@ -232,7 +232,7 @@
         
         const categoryQuestions = questions[category];
         const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-        const question = categoryQuestions[category][randomIndex];
+        const question = categoryQuestions[randomIndex];
         document.getElementById("question").innerHTML = text + '<br><span style="font-size: 30px; display: block; margin-top: 10px">' + symbol + '</span>';
         document.getElementById("controls").style.display = "block";
     }
