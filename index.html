@@ -4,35 +4,42 @@
   <meta charset="UTF-8">
   <title>Sparks</title>
   <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
     button {
       padding: 10px 20px;
       font-size: 18px;
       margin: 10px;
       cursor: pointer;
     }
-    #output {
+    #question-box {
       margin-top: 30px;
       font-size: 20px;
-      text-align: center;
     }
     .symbol {
       font-size: 48px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div id="categories">
-    <button onclick="showQuestion('past', this)">Past</button>
-    <button onclick="showQuestion('present', this)">Present</button>
-    <button onclick="showQuestion('future', this)">Future</button>
+  <h1>Вибери категорію</h1>
+
+  <div>
+    <button id="btn-past" onclick="handleCategory('past')">Past</button>
+    <button id="btn-present" onclick="handleCategory('present')">Present</button>
+    <button id="btn-future" onclick="handleCategory('future')">Future</button>
   </div>
 
-  <div id="output"></div>
+  <div id="question-box"></div>
 
     <script>
         const questions = {
-            Future: [
+            future: [
                 {text: "Якби тобі залишалося жити лише один рік, як би ти його провів?", symbol: "☾"},
                 {text: "Якби ти починав новий бізнес, то що б це було?", symbol: "☾"},
                 {text: "Якби прямо зараз ти міг отримати будь-яку роботу в світі, то що б це була за робота?", symbol: "☾"},
@@ -78,7 +85,7 @@
                 {text: "Lunar event: витягуй картки поки не натрапиш на питання. Перед відповіддю інша людина може додати, прибрати або поміняти одне слово в питанні", symbol: "⬤"},
                 {text: "Lunar event: інша людина переглядає наступні три питання і обирає одне для тебе", symbol: "⬤"}
             ],
-            Present: [
+            present: [
                 {text: "Що завжди може підняти тобі настрій?", symbol: "⬊"},
                 {text: "Як ти думаєш, яке перше враження у людей про тебе?", symbol: "⬊"},
                 {text: "Як ти зараз відрізняєшся від того яким ти був 5 років тому?", symbol: "⬉"},
@@ -126,7 +133,7 @@
                 {text: "Lunar event: витягуй картки поки не натрапиш на питання. Перед відповіддю інша людина може додати, прибрати або поміняти одне слово в питанні", symbol: "⬤"},
                 {text: "Lunar event: інша людина переглядає наступні три питання і обирає одне для тебе", symbol: "⬤"}
             ],
-            Past: [
+            past: [
                 {text: "Який найкращий подарунок ти отримував?", symbol: "◓"},
                 {text: "Хто був твоїм куміром в дитинстві?", symbol: "◒"},
                 {text: "Яку найкращу кар'єрну пораду чи настанову ти колись отримував?", symbol: "◓"},
@@ -172,17 +179,17 @@
                 {text: "Lunar event: витягуй картки поки не натрапиш на питання. Перед відповіддю інша людина може додати, прибрати або поміняти одне слово в питанні", symbol: "⬤"},
                 {text: "Що ти в дитинстві найбільше любив дивитись по телевізору?", symbol: "◒"}
             ]
-        }; 
-        
-    function showQuestion(category, button) {
-      const output = document.getElementById("output");
-      const items = questions[category];
-      const randomItem = items[Math.floor(Math.random() * items.length)];
-      output.innerHTML = `
-        <div class="symbol">${randomItem.symbol}</div>
-        <div>${randomItem.text}</div>
+        };   
+
+    function handleCategory(category) {
+      const btn = document.getElementById(`btn-${category}`);
+      btn.disabled = true;
+
+      const random = questions[category][Math.floor(Math.random() * questions[category].length)];
+      document.getElementById('question-box').innerHTML = `
+        <div class="symbol">${random.symbol}</div>
+        <div>${random.text}</div>
       `;
-      button.disabled = true;
     }
   </script>
 
