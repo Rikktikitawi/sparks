@@ -6,54 +6,31 @@
   <style>
     body {
       font-family: sans-serif;
-      text-align: center;
-      padding: 30px;
+      padding: 20px;
     }
-
-    .category-button {
-      font-size: 18px;
-      padding: 10px 20px;
+    button {
       margin: 10px;
-      cursor: pointer;
+      padding: 10px 20px;
+      font-size: 16px;
     }
-
-    .question-box {
+    #output {
       margin-top: 30px;
-      display: none;
+      font-size: 20px;
     }
-
     .symbol {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
-    .action-buttons {
-      margin-top: 20px;
-    }
-
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
+      font-size: 40px;
     }
   </style>
 </head>
 <body>
-  <h1>Гра Sparks</h1>
 
-  <div id="categories">
-    <button class="category-button" data-category="past">Past</button>
-    <button class="category-button" data-category="present">Present</button>
-    <button class="category-button" data-category="future">Future</button>
-  </div>
+  <h1>Sparks</h1>
 
-  <div class="question-box" id="question-box">
-    <div class="symbol" id="symbol"></div>
-    <div class="question" id="question"></div>
-    <div class="action-buttons">
-      <button id="skip-button">Пропустити</button>
-      <button id="answer-button">Відповісти</button>
-    </div>
-  </div>
+  <button onclick="showQuestion('past', this)">Past</button>
+  <button onclick="showQuestion('present', this)">Present</button>
+  <button onclick="showQuestion('future', this)">Future</button>
+
+  <div id="output"></div>
 
     <script>
         const questions = {
@@ -199,77 +176,23 @@
             ]
         }; 
         
-    let currentCategory = null;
-    let activeButton = null;
+    function showQuestion(category, button) {
+      // Отримуємо список питань для категорії
+      const list = questions[category];
+      if (!list || list.length === 0) return;
 
-    const usedQuestions = {
-      past: [],
-      present: [],
-      future: []
-    };
+      // Випадкове питання
+      const randomIndex = Math.floor(Math.random() * list.length);
+      const question = list[randomIndex];
 
-    const buttons = document.querySelectorAll(".category-button");
-    const questionBox = document.getElementById("question-box");
-    const questionText = document.getElementById("question-text");
-    const symbol = document.getElementById("symbol");
-    const skipBtn = document.getElementById("skip-button");
-    const answerBtn = document.getElementById("answer-button");
+      // Виводимо символ і питання
+      const output = document.getElementById("output");
+      output.innerHTML = `<div class="symbol">${question.symbol}</div><div>${question.text}</div>`;
 
-    function getRandomQuestion(category) {
-      const remaining = questions[category].filter(q => !usedQuestions[category].includes(q));
-      if (remaining.length === 0) return null;
-      const q = remaining[Math.floor(Math.random() * remaining.length)];
-      usedQuestions[category].push(q);
-      return q;
+      // Деактивуємо кнопку
+      button.disabled = true;
     }
-
-    function showQuestionForCategory(category, button) {
-      currentCategory = category;
-      activeButton = button;
-      const q = getRandomQuestion(category);
-      if (q) {
-        questionText.textContent = q.text;
-        symbol.textContent = q.symbol;
-        questionBox.style.display = "block";
-        skipBtn.disabled = false;
-      } else {
-        questionText.textContent = "Питання закінчилися!";
-        symbol.textContent = "";
-        skipBtn.disabled = true;
-      }
-    }
-
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        if (button.disabled) return;
-        showQuestionForCategory(button.dataset.category, button);
-      });
-    });
-
-    skipBtn.addEventListener("click", () => {
-      const q = getRandomQuestion(currentCategory);
-      if (q) {
-        questionText.textContent = q.text;
-        symbol.textContent = q.symbol;
-      } else {
-        questionText.textContent = "Питання закінчилися!";
-        symbol.textContent = "";
-        skipBtn.disabled = true;
-      }
-    });
-
-    answerBtn.addEventListener("click", () => {
-      if (activeButton) {
-        activeButton.textContent = symbol.textContent;
-        activeButton.disabled = true;
-        questionBox.style.display = "none";
-        questionText.textContent = "";
-        symbol.textContent = "";
-        currentCategory = null;
-        activeButton = null;
-        skipBtn.disabled = false;
-      }
-    });
   </script>
+
 </body>
 </html>
