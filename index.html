@@ -1,85 +1,59 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparks Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        .button-container {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        button {
-            font-size: 18px;
-            padding: 20px 40px;
-            cursor: pointer;
-            border-radius: 10px;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            width: 100px;
-            height: 160px;
-        }
-        button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        #question {
-            margin-top: 30px;
-            font-size: 22px;
-            font-weight: bold;
-            color: #444;
-        }
-        .control-button {
-            background-color: #8000ff;
-            color: #c0c0c0;
-            border: none;
-            padding: 8px 16px;
-            font-size: 14px;
-            border-radius: 6px;
-            margin: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-            width: 100px;
-            height: 30px
-        }
-        
-        .control-button:hover {
-            background-color: #6a00cc;
-            transform: scale(1.05);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Sparks Game</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .category-button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    .question-box {
+      margin-top: 30px;
+      display: none;
+    }
+
+    .symbol {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .action-buttons {
+      margin-top: 20px;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
+  <h1>Гра Sparks</h1>
 
-    <h1>Гра Sparks</h1>
-    <p>Вибери категорію та натисни кнопку, щоб отримати питання.</p>
+  <div id="categories">
+    <button class="category-button" data-category="past">Past</button>
+    <button class="category-button" data-category="present">Present</button>
+    <button class="category-button" data-category="future">Future</button>
+  </div>
 
-    <div class="button-container">
-        <button onclick="getQuestion('Past')">Past</button>
-        <button onclick="getQuestion('Present')">Present</button>
-        <button onclick="getQuestion('Future')">Future</button>
+  <div class="question-box" id="question-box">
+    <div class="symbol" id="symbol"></div>
+    <div class="question" id="question"></div>
+    <div class="action-buttons">
+      <button id="skip-button">Пропустити</button>
+      <button id="answer-button">Відповісти</button>
     </div>
-
-    <div id="question"></div>
-
-    <div id="controls" style="display: none;">
-        <button id="skip-btn" class="control-button">Пропустити</button>
-        <button id="answer-btn" class="control-button">Відповісти</button>
-    </div>
+  </div>
 
     <script>
         const questions = {
@@ -225,15 +199,65 @@
             ]
         }; 
         
-    function getQuestion(category) {
-        const categoryQuestions = questions[category];
-        const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-        const question = categoryQuestions[randomIndex];
-        
-        document.getElementById("question").innerHTML = text + '<br><span style="font-size: 30px; display: block; margin-top: 10px">' + symbol + '</span>';
-        document.getElementById("controls").style.display = "block";
-    }
-    </script>
+ let currentCategory = null;
+    const usedQuestions = {
+      past: [],
+      present: [],
+      future: []
+    };
 
+    const buttons = document.querySelectorAll(".category-button");
+    const questionBox = document.getElementById("question-box");
+    const questionText = document.getElementById("question");
+    const symbol = document.getElementById("symbol");
+    const skipBtn = document.getElementById("skip-button");
+    const answerBtn = document.getElementById("answer-button");
+
+    let activeButton = null;
+
+    function getRandomQuestion(category) {
+      const remaining = questions[category].filter(q => !usedQuestions[category].includes(q));
+      if (remaining.length === 0) return null;
+      const q = remaining[Math.floor(Math.random() * remaining.length)];
+      usedQuestions[category].push(q);
+      return q;
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        currentCategory = button.dataset.category;
+        activeButton = button;
+        const q = getRandomQuestion(currentCategory);
+        if (q) {
+          questionText.textContent = q.text;
+          symbol.textContent = q.symbol;
+          questionBox.style.display = "block";
+        }
+      });
+    });
+
+    skipBtn.addEventListener("click", () => {
+      const q = getRandomQuestion(currentCategory);
+      if (q) {
+        questionText.textContent = q.text;
+        symbol.textContent = q.symbol;
+      } else {
+        questionText.textContent = "Питання закінчилися!";
+        symbol.textContent = "";
+        skipBtn.disabled = true;
+      }
+    });
+
+    answerBtn.addEventListener("click", () => {
+      if (activeButton) {
+        activeButton.textContent = symbol.textContent;
+        activeButton.disabled = true;
+        questionBox.style.display = "none";
+        questionText.textContent = "";
+        symbol.textContent = "";
+        skipBtn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
