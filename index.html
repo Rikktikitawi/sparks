@@ -186,30 +186,39 @@
             ]
         };   
 
-    function handleCategory(category) {
-      const btn = document.getElementById(`btn-${category}`);
-      btn.disabled = true;
+    let currentIndex = -1;
+        let currentCategory = '';
 
-      const random = questions[category][Math.floor(Math.random() * questions[category].length)];
-      document.getElementById('question-box').innerHTML = `
-        <div>${random.text}</div>
-        <div class="symbol">${random.symbol}</div>
-      `;
-      
-      document.getElementById('action-buttons').innerHTML = `
-        <button id="skip-btn" onclick="skipQuestion()">Пропустити</button>
-        <button id="answer-btn" onclick="answerQuestion()">Відповісти</button>
-      `;
-    }
+        function handleCategory(category) {
+            currentCategory = category;
+            currentIndex = 0; // починаємо з першого питання в обраній категорії
+            const btn = document.getElementById(`btn-${category}`);
+            btn.disabled = true;
 
-    function skipQuestion() {
-      // Логіка пропуску питання
-    }
+            showQuestion();
+        }
 
-    function answerQuestion() {
-      // Логіка відповіді на питання
-    }
-  </script>
+        function showQuestion() {
+            const question = questions[currentCategory][currentIndex];
+            document.getElementById('question-box').innerHTML = `
+                <div>${question.text}</div>
+                <div class="symbol">${question.symbol}</div>
+            `;
+
+            document.getElementById('action-buttons').innerHTML = `
+                <button id="skip-btn" onclick="skipQuestion()">Пропустити</button>
+                <button id="answer-btn" onclick="answerQuestion()">Відповісти</button>
+            `;
+        }
+
+        function skipQuestion() {
+            currentIndex = (currentIndex + 1) % questions[currentCategory].length; // переходить до наступного питання
+            showQuestion();
+        }
+
+        function answerQuestion() {
+        }
+    </script>
 
 </body>
 </html>
