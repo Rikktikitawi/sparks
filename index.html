@@ -194,10 +194,11 @@
       document.getElementById('question-box').innerHTML = `
         <div>${random.text}</div>
         <div class="symbol">${random.symbol}</div>
+      ;
       
       document.getElementById('action-buttons').innerHTML = `
-      <button id="skip-btn">Пропустити</button>
-      <button id="answer-btn">Відповісти</button>
+        <button id="skip-btn" onclick="skipQuestion()">Пропустити</button>
+        <button id="answer-btn" onclick="answerQuestion()">Відповісти</button>
       ;
     }
   </script>
