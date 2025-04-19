@@ -199,7 +199,9 @@
             ]
         }; 
         
- let currentCategory = null;
+    let currentCategory = null;
+    let activeButton = null;
+
     const usedQuestions = {
       past: [],
       present: [],
@@ -213,8 +215,6 @@
     const skipBtn = document.getElementById("skip-button");
     const answerBtn = document.getElementById("answer-button");
 
-    let activeButton = null;
-
     function getRandomQuestion(category) {
       const remaining = questions[category].filter(q => !usedQuestions[category].includes(q));
       if (remaining.length === 0) return null;
@@ -223,16 +223,26 @@
       return q;
     }
 
+    function showQuestionForCategory(category, button) {
+      currentCategory = category;
+      activeButton = button;
+      const q = getRandomQuestion(category);
+      if (q) {
+        questionText.textContent = q.text;
+        symbol.textContent = q.symbol;
+        questionBox.style.display = "block";
+        skipBtn.disabled = false;
+      } else {
+        questionText.textContent = "Питання закінчилися!";
+        symbol.textContent = "";
+        skipBtn.disabled = true;
+      }
+    }
+
     buttons.forEach(button => {
       button.addEventListener("click", () => {
-        currentCategory = button.dataset.category;
-        activeButton = button;
-        const q = getRandomQuestion(currentCategory);
-        if (q) {
-          questionText.textContent = q.text;
-          symbol.textContent = q.symbol;
-          questionBox.style.display = "block";
-        }
+        if (button.disabled) return;
+        showQuestionForCategory(button.dataset.category, button);
       });
     });
 
@@ -255,6 +265,8 @@
         questionBox.style.display = "none";
         questionText.textContent = "";
         symbol.textContent = "";
+        currentCategory = null;
+        activeButton = null;
         skipBtn.disabled = false;
       }
     });
