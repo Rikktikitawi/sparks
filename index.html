@@ -225,16 +225,18 @@
             ]
         };
 
-    let currentCategory = null;    
+    let currentCategory = '';    
+        
     function getQuestion(category) {
+        currentCategory = category;
         const categoryQuestions = questions[category];
         const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-        const question = categoryQuestions[randomIndex];
+        const randomQuestion = categoryQuestions[randomIndex];
+        
         document.getElementById("question").innerHTML = text + '<br><span style="font-size: 30px; display: block; margin-top: 10px">' + symbol + '</span>';
         document.getElementById("controls").style.display = "block";
     }
-        document.getElementById("skip-btn").addEventListener("click", () => {
-    if (currentCategory) {
+        document.getElementById("skip-btn").addEventListener("click", function() => {
         getQuestion(currentCategory);
     }
 });
