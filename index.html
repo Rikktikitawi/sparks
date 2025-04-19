@@ -207,10 +207,11 @@
             currentIndex = 0; // починаємо з першого питання в обраній категорії
             const btn = document.getElementById(`btn-${category}`);
             btn.disabled = true;
-          document.getElementById('answer-btn').disabled = false;
-          document.getElementById('skip-btn').disabled = false;
 
             showQuestion();
+          
+          document.getElementById('answer-btn').disabled = false;
+          document.getElementById('skip-btn').disabled = false;
         }
 
         function showQuestion() {
