@@ -187,8 +187,8 @@
 
       const random = questions[category][Math.floor(Math.random() * questions[category].length)];
       document.getElementById('question-box').innerHTML = `
-        <div class="symbol">${random.symbol}</div>
         <div>${random.text}</div>
+        <div class="symbol">${random.symbol}</div>
       `;
     }
   </script>
