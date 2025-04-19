@@ -228,7 +228,6 @@
     let currentCategory = null;
         
     function getQuestion(category) {
-        button.disabled = true;
         currentCategory = category;
         const categoryQuestions = questions[category];
         const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
