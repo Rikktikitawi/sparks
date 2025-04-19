@@ -219,7 +219,10 @@
         function answerQuestion() {
           const symbol = questions[currentCategory][currentIndex].symbol;
           const categoryButton = document.getElementById(`btn-${currentCategory}`);
-          categoryButton.innerHTML = symbol;
+          const symbolElement = document.createElement("div");
+          symbolElement.classList.add("symbol");
+          symbolElement.textContent = symbol;
+          categoryButton.replaceWith(symbolElement);
         }
     </script>
 
