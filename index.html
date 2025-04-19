@@ -32,10 +32,16 @@
 
   <h1>Sparks</h1>
 
-  <div>
-    <button id="btn-past" onclick="handleCategory('past')">Past</button>
-    <button id="btn-present" onclick="handleCategory('present')">Present</button>
-    <button id="btn-future" onclick="handleCategory('future')">Future</button>
+<div>
+    <div class="category-btn-container" id="btn-past-container">
+      <button id="btn-past" onclick="handleCategory('past')">Past</button>
+    </div>
+    <div class="category-btn-container" id="btn-present-container">
+      <button id="btn-present" onclick="handleCategory('present')">Present</button>
+    </div>
+    <div class="category-btn-container" id="btn-future-container">
+      <button id="btn-future" onclick="handleCategory('future')">Future</button>
+    </div>
   </div>
 
   <div id="question-box"></div>
@@ -218,11 +224,8 @@
 
         function answerQuestion() {
           const symbol = questions[currentCategory][currentIndex].symbol;
-          const categoryButton = document.getElementById(`btn-${currentCategory}`);
-          const symbolElement = document.createElement("div");
-          symbolElement.classList.add("symbol");
-          symbolElement.textContent = symbol;
-          categoryButton.replaceWith(symbolElement);
+          const btnContainer = document.getElementById(`btn-${currentCategory}-container`);
+          btnContainer.innerHTML = `<div class="symbol">${symbol}</div>`;
         }
     </script>
 
