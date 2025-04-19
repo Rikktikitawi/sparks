@@ -82,7 +82,6 @@
     </div>
 
     <script>
-        let currentCategory = "";
         const questions = {
             Future: [
                 {text: "Якби тобі залишалося жити лише один рік, як би ти його провів?", symbol: "☾"},
@@ -226,7 +225,7 @@
             ]
         };
 
-        
+    let currentCategory = null;    
     function getQuestion(category) {
         
         const categoryQuestions = questions[category];
